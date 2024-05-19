@@ -4,7 +4,7 @@ import logging
 import threading
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-
+import os
 
 from haystack import Pipeline
 from haystack.dataclasses import ChatMessage
@@ -23,7 +23,7 @@ from AIAgent import AiAgents
 global BOT_TOKEN,BOTID
 global bot_instance, target_chat_id
 
-BOT_TOKEN = '6777854610:AAG6O6Qjt6Ohf5_PZvc0s-G8HGaJOPahPpg'  # Default Bot token, please replace with ur own botToken
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 BOTID="testbot"
 target_chat_id = None
 bot_instance = None

@@ -21,7 +21,8 @@ class HummingBotTools:
 
 
     def websearch(self, user_msg: str):
-      searchcontent = self.llm.run( messages = user_msg)
+      messages = [ChatMessage.from_user(content=user_msg)]
+      searchcontent = self.llm.run( messages = messages)
       return searchcontent["replies"][0].content
 
     websearch_func = FunctionDeclaration(

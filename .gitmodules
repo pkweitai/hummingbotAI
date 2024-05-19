@@ -1,0 +1,3 @@
+[submodule "hbot-remote-client"]
+	path = hbot-remote-client
+	url = git@github.com:hummingbot/hbot-remote-client-py.git

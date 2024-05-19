@@ -1,4 +1,4 @@
-# Hummingbot Telegram LLM Chatbot
+# Hummingbot AI Chatbot
 
 ![Alt text](tg.png?raw=true "Title")
 ## Description
@@ -8,6 +8,7 @@ This project introduces a Telegram chatbot powered by a Large Language Model (LL
 - **Comprehensive Command Execution**: Fully exercise all available commands via MQTT.
 - **Flexible Architecture**: Built with HayStack and Google Gemini, making it easy to switch to other LLMs.
 - **Production-Ready**: Ready for deployment with built-in scalability and reliability.
+- **Scalable Tool feature : you can create new tools by adding more featuretable with different bottypes, to make the AiBot smarter to capture actions for users (e.g. get specific news on crypto topic, get market sentiments or synthesis a trading strategies) - this is still in Alpha , need more community support
 
 ## Requirements
 To set up the chatbot, follow these steps:

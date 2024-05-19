@@ -1,6 +1,6 @@
 # Hummingbot Telegram LLM Chatbot
 
-    ![Chatbot Interface](tg.png)  
+![Alt text](tg.png?raw=true "Title")
 ## Description
 This project introduces a Telegram chatbot powered by a Large Language Model (LLM), specifically designed for interacting with Hummingbot. It leverages MQTT for command execution and incorporates a robust, production-ready architecture using HayStack and Google Gemini, offering easy adaptability to other LLMs like OpenAI.
 

@@ -1,4 +1,3 @@
-from featuretable import HummingBotTools
 import logging
 import threading
 from telegram import Update
@@ -10,15 +9,20 @@ from haystack.components.builders import DynamicChatPromptBuilder
 from hbotrc import BotListener
 from google.ai.generativelanguage import  Tool
 from featuretable import HummingBotTools
-
+from QueryExternal import QueryExternalToolTable  # to support external feature table extensions
 
 
 class AiAgents:
        
-    def __init__(self,BOTID) -> None:
+    def __init__(self,BOTID=None, BOT_TYPE=None) -> None:
         
         self.llm = GoogleAIGeminiChatGenerator(model="gemini-pro" );
-        self.htable = HummingBotTools(BOTID,self.llm)
+        self.bottype = BOT_TYPE
+
+        if self.bottype is None:  #default to Hummingbot
+            self.htable = HummingBotTools(BOTID,self.llm)
+        else:
+            self.htable = QueryExternalToolTable(self.bottype) 
 
         llm4tool =GoogleAIGeminiChatGenerator(
                     model="gemini-pro",
@@ -27,8 +31,8 @@ class AiAgents:
         self.pipeline = self.pipebuilder(llm4tool)
 
 
-    def pipebuilder(self,llm):
-        
+
+    def pipebuilder(self,llm):        
         #Tool dispatch
         prompt_builder = DynamicChatPromptBuilder()
         # Create and configure the pipeline

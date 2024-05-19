@@ -14,7 +14,6 @@ from hbotrc import BotListener
 
 
 from google.ai.generativelanguage import  Tool
-from featuretable import HummingBotTools
 from AIAgent import AiAgents
 
 
@@ -23,7 +22,6 @@ from AIAgent import AiAgents
 global BOT_TOKEN,BOTID
 global bot_instance, target_chat_id
 
-BOT_TOKEN = os.getenv('BOT_TOKEN')
 BOTID="testbot"
 target_chat_id = None
 bot_instance = None
@@ -57,11 +55,15 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main():
+
+    BOT_TOKEN = os.getenv('BOT_TOKEN')
+    BOT_TYPE = os.getenv('BOT_TYPE')
+
     global application
     application = Application.builder().token(BOT_TOKEN).build()
       
     global agent  
-    agent=AiAgents(BOTID)
+    agent=AiAgents(BOTID,BOT_TYPE)
 
 
     # Instantiate BotListener with notification handler
@@ -88,7 +90,8 @@ def main():
 
 
     # Run the bot and listener
-    threading.Thread(target=asyncio.new_event_loop().run_until_complete, args=(listener.run_forever(),)).start()
+    if BOT_TYPE is None:
+     threading.Thread(target=asyncio.new_event_loop().run_until_complete, args=(listener.run_forever(),)).start()
 
 
     application.run_polling()

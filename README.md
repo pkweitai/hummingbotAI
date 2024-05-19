@@ -16,18 +16,23 @@ To set up the chatbot, follow these steps:
    Ensure that the Google API Key is set in your environment:
    ```bash
    export GOOGLE_API_KEY='your_google_api_key_here'
+   ```
+
 2 **Running Hummingbot**
    Clone and set up Hummingbot from the official repository:
-   '''bash
-    git clone https://github.com/hummingbot/hummingbot.git
-    cd hummingbot
-    # Follow the setup instructions in the Hummingbot repository
+   ```bash
+   git clone https://github.com/hummingbot/hummingbot.git
+   cd hummingbot
+   ```
+
+# Follow the setup instructions in the Hummingbot repository
 
 3 **Running MQTT Broker**
 Set up an MQTT Broker by cloning the broker repository:
-   '''bash
+   ```bash
     git clone git@github.com:hummingbot/brokers.git
     cd brokers
+   ```
 
 4 **Follow the setup instructions for the broker**
 - Create a Telegram Bot
@@ -38,9 +43,10 @@ Create a Telegram bot using BotFather on Telegram and obtain the bot token:
 ## Installation
 After setting up the requirements, install the necessary dependencies:
 
-   '''bash
+   ```bash
     pip install -r requirements.txt
     python aihbot.py
+   ```
 
 ## TODO
 - Support More LLMs: Integrate additional LLM providers like OpenAI, Groq, and LLAMA3.

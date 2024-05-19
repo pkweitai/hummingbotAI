@@ -53,6 +53,7 @@ After setting up the requirements, install the necessary dependencies:
 - Improve Chat Performance: Implement a Context Memory based Agent to enhance chat interactions.
 - Add More Features:
   Expand capabilities to include more trading and crypto-related features.
+- Add web widgets to enable advanced strategy , charting  
 
 ## Contributing
 Contributions are welcome! Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests to us.

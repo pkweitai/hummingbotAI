@@ -63,7 +63,14 @@ def main():
     application = Application.builder().token(BOT_TOKEN).build()
       
     global agent  
-    agent=AiAgents(BOTID,BOT_TYPE)
+
+    try:
+        agent=AiAgents(BOTID,BOT_TYPE)
+    
+    except Exception as e:
+        BOT_TYPE="general"
+        agent=AiAgents(BOTID,"general")
+        print("Disable Hummingbot bridges - fallback to geenral config  :", e)
 
 
     # Instantiate BotListener with notification handler

@@ -11,6 +11,9 @@ from haystack.dataclasses import ChatMessage
 from haystack_integrations.components.generators.google_ai import GoogleAIGeminiChatGenerator
 from haystack.components.builders import DynamicChatPromptBuilder
 from hbotrc import BotListener
+from telegram import Update
+from telegram.constants import ParseMode
+
 
 
 from google.ai.generativelanguage import  Tool
@@ -47,7 +50,7 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
             response = agent.chat_with_agent(update.message.text)
             print(response)
-            await update.message.reply_text(response["msg"])
+            await update.message.reply_text(response["msg"],parse_mode=ParseMode.MARKDOWN)
           
     else:
          await update.message.reply_text("Please use /start to activate the bot.")

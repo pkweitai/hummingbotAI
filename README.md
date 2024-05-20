@@ -1,5 +1,4 @@
-![Alt text](ai.png?raw=true "Title")
-# Hummingbot AI Chatbot 
+# ![Alt text](ai.png?raw=true "Title") Hummingbot AI Chatbot 
 
 ![Alt text](tg.png?raw=true "Title")
 ## Description

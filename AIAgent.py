@@ -22,13 +22,17 @@ class AiAgents:
         if self.bottype is None:  #default to Hummingbot
             self.htable = HummingBotTools(BOTID,self.llm)
         else:
-            self.htable = QueryExternalToolTable(self.bottype) 
+            self.htable = QueryExternalToolTable(self.bottype,self.llm) 
 
         llm4tool =GoogleAIGeminiChatGenerator(
                     model="gemini-pro",
                     tools=[Tool(function_declarations=self.htable.getFTable())]
         )
         self.pipeline = self.pipebuilder(llm4tool)
+        self.systemmsg =  ChatMessage.from_system("You are a helpful assistant giving out valuable information to crypto traders.")
+        self.defaultprompt = """
+                Given the context, please answer the question 
+                """
 
 
 

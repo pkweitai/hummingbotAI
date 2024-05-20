@@ -1,14 +1,19 @@
 from haystack.dataclasses import ChatMessage
 from google.ai.generativelanguage import FunctionDeclaration, Tool
 from hbotrc import BotListener, BotCommands
+from newsapi import NewsApiClient
+
 import requests
 
 # function Table
 class DevOpTools:
 
-    def __init__(self, username: str, token: str, base_url: str) -> None:
+    def __init__(self, username: str, token: str, base_url: str, llm) -> None:
         self.auth = (username, token)
         self.base_url = base_url
+        self.llm=llm
+        self.newsapi = NewsApiClient(api_key='b931f2abbe124eaa86f25bf61984626a')
+
 
     def start_build(self, jobname: str):
         url = f"{self.base_url}/job/{jobname}/build"
@@ -36,6 +41,51 @@ class DevOpTools:
             'status': job['color']
         } for job in jobs]
         return {"jobs": job_details}
+
+    def websearch(self, user_msg: str):
+        response={user_msg : ""}
+        messages = [ChatMessage.from_user(content=user_msg)]
+        searchcontent = self.llm.run( messages = messages)
+        response["user_msg"] = searchcontent["replies"][0].content
+        return response
+
+    websearch_func = FunctionDeclaration(
+        name="websearch",
+        description="Performs a simulated web search using a large language model and returns the main content of the first reply.",
+        parameters={
+            "type_": "OBJECT",
+            "properties": {
+                "user_msg": {"type_": "STRING", "description": "The user's message or query to search for"},
+            },
+            "required": ["user_msg"],
+        },
+    )
+
+
+    def search_news(self, topic: str):
+            # Fetch top headlines using specific parameters
+            articles = self.newsapi.get_top_headlines(
+                q='crypto',
+                sources='bbc-news,the-verge',
+                category='business',
+                language='en',
+                country='us'
+            )
+            # Collect titles and URLs from the articles
+            news_list = [{"title": article["title"], "url": article["url"]} for article in articles["articles"]]
+            return news_list
+
+    search_news_func = FunctionDeclaration(
+        name="search_news",
+        description="Search top news headlines based on a topic and return headlines and URLs",
+        parameters={
+            "type_": "OBJECT",
+            "properties": {
+                "topic": {"type_": "STRING", "description": "The topic to search for in news articles"},
+            },
+            "required": ["topic"],
+        },
+    )
 
 
 
@@ -125,7 +175,8 @@ class DevOpTools:
          return [
             self.start_build_func,
             self.get_build_number_func,
-            self.stop_build_func
+            self.stop_build_func,
+            self.websearch_func
         ]
 
     #end function TAble

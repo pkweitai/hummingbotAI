@@ -105,7 +105,6 @@ llama-index-readers-llama-parse==0.1.4
 llama-parse==0.4.3
 llamaindex-py-client==0.1.19
 llvmlite==0.42.0
-logging==0.4.9.6
 marisa-trie==1.1.1
 MarkupSafe==2.1.5
 marshmallow==3.21.1

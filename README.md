@@ -34,8 +34,11 @@ Set up an MQTT Broker by cloning the broker repository:
     git clone git@github.com:hummingbot/brokers.git
     cd brokers
    ```
+4 ** Setup the MQTT remote client submodule
+git submodule update --init to fetch the submodule;
+cd hbot-remote-client && pip install . to install hbotrc from the submodule.
 
-4 **Follow the setup instructions for the broker**
+5 **Follow the setup instructions for the broker**
 - Create a Telegram Bot
 Create a Telegram bot using BotFather on Telegram and obtain the bot token:
 - Start a chat with BotFather (@BotFather)

@@ -17,7 +17,7 @@ class HummingBotTools:
                             bot_id=BOTID  # This should be dynamic or configurable
                         )
                 # Initialize the News API client
-              self.newsapi = NewsApiClient(api_key='b931f2abbe124eaa86f25bf61984626a')
+              self.newsapi = NewsApiClient(api_key=os.getenv('NEWS_API_KEY'))
 
 
     def websearch(self, user_msg: str):

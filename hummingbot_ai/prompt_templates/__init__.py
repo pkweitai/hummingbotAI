@@ -1,6 +1,7 @@
 import functools
-from langchain.schema import SystemMessage
 from os.path import realpath, join
+
+from langchain_core.prompts import SystemMessagePromptTemplate
 
 
 def template_path() -> str:
@@ -8,6 +9,6 @@ def template_path() -> str:
 
 
 @functools.lru_cache
-def user_intent_classification() -> SystemMessage:
+def user_intent_classification_template() -> SystemMessagePromptTemplate:
     with open(join(template_path(), "user_intent_classification.md"), "r") as fd:
-        return SystemMessage(content=fd.read())
+        return SystemMessagePromptTemplate.from_template(fd.read())

@@ -3,11 +3,13 @@
 import argparse
 import asyncio
 from dotenv import load_dotenv
+from langchain_core.runnables import RunnableSequence
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_community.chat_models.ollama import ChatOllama
+from typing import Dict
 
-from hummingbot_ai.user_intent_classifier import get_user_intent, UserIntent
+from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
 
 
 TEST_USER_MESSAGES = [
@@ -45,8 +47,10 @@ async def main():
     else:
         llm: ChatOpenAI = ChatOpenAI(temperature=0.0)
 
+    chain: RunnableSequence[Dict, UserIntent] = classify_user_intent_chain(llm)
+
     for user_message in TEST_USER_MESSAGES:
-        classification: UserIntent = await get_user_intent(llm, user_message)
+        classification: UserIntent = await chain.ainvoke({"message": user_message})
         print(f"User message: {user_message}\n{classification}\n")
 
 

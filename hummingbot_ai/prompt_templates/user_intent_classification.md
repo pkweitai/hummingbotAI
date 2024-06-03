@@ -102,6 +102,9 @@ Your task is to classify the sample text to one of the following user intents:
    * Should I tell my grandpa about Bitcoin in the next Thanksgiving dinner?
 
 You must always answer the sample text's classification in the following format:
+```
 Classification: <YOUR CLASSIFICATION>
+```
 
-You must only classify the sample text as one of the 8 cases that was given to you above. Do not add anything else.
+You must only classify the sample text as one of the 8 cases that was given to you above. Do not add anything else. Do
+not include the bullet point number (e.g. "1.") in your classification.

@@ -31,7 +31,8 @@ Your task is to classify the sample text to one of the following user intents:
 
    The user may ask for market news, price updates, or a summary of what is happening in the crypto markets. He might 
    specify some market news topic or crypto assets he's interested in. He may also specify a time range he's interested
-   in. Here are some examples:
+   in. If the user asks for any trading advise or why the market behaves in a certain way, the message also goes under
+   this category. Here are some examples:
 
    * How are the markets today?
    * Has there been any news on crypto related legislation last week?
@@ -40,6 +41,7 @@ Your task is to classify the sample text to one of the following user intents:
    * What is the news?
    * news
    * What is the price of Bitcoin and Ethereum right now?
+   * Why did the price of Ethereum drop so much today?
 
 4. Portfolio information
 

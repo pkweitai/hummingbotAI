@@ -7,7 +7,7 @@ from haystack.dataclasses import ChatMessage
 from haystack_integrations.components.generators.google_ai import GoogleAIGeminiChatGenerator
 from haystack.components.builders import DynamicChatPromptBuilder
 from hbotrc import BotListener
-from google.ai.generativelanguage import  Tool
+from google.ai.generativelanguage import Tool
 from featuretable import HummingBotTools
 from QueryExternal import QueryExternalToolTable  # to support external feature table extensions
 
@@ -16,24 +16,23 @@ class AiAgents:
        
     def __init__(self,BOTID=None, BOT_TYPE=None) -> None:
         
-        self.llm = GoogleAIGeminiChatGenerator(model="gemini-pro" );
+        self.llm = GoogleAIGeminiChatGenerator(model="gemini-pro")
         self.bottype = BOT_TYPE
 
         if self.bottype is None:  #default to Hummingbot
             self.htable = HummingBotTools(BOTID,self.llm)
         else:
-            self.htable = QueryExternalToolTable(self.bottype,self.llm) 
+            self.htable = QueryExternalToolTable(self.bottype,self.llm)
 
-        llm4tool =GoogleAIGeminiChatGenerator(
-                    model="gemini-pro",
-                    tools=[Tool(function_declarations=self.htable.getFTable())]
+        llm4tool = GoogleAIGeminiChatGenerator(
+            model="gemini-pro",
+            tools=[Tool(function_declarations=self.htable.getFTable())]
         )
         self.pipeline = self.pipebuilder(llm4tool)
         self.systemmsg =  ChatMessage.from_system("You are a helpful assistant giving out valuable information to crypto traders.")
         self.defaultprompt = """
                 Given the context, please answer the question 
                 """
-
 
 
     def pipebuilder(self,llm):        

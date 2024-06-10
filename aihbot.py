@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import asyncio
+import dotenv
 import logging
 import threading
 from telegram import Update
@@ -58,6 +59,7 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main():
+    dotenv.load_dotenv()
 
     BOT_TOKEN = os.getenv('BOT_TOKEN')
     BOT_TYPE = os.getenv('BOT_TYPE')

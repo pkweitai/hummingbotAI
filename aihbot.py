@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import asyncio
-import dotenv
+import argparse
+#import dotenv
 import logging
 import threading
 from telegram import Update
@@ -15,10 +16,14 @@ from hbotrc import BotListener
 from telegram import Update
 from telegram.constants import ParseMode
 
-
-
+from langchain_core.runnables import RunnableSequence
+from langchain_openai.chat_models import ChatOpenAI
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
+from langchain_community.chat_models.ollama import ChatOllama
+from typing import Dict
+from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
 from google.ai.generativelanguage import  Tool
-from AIAgent import AiAgents
+
 
 
 
@@ -29,6 +34,13 @@ global bot_instance, target_chat_id
 BOTID="testbot"
 target_chat_id = None
 bot_instance = None
+
+
+def cmdline_parser() -> argparse.ArgumentParser:
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(description="User intent classification test script")
+    parser.add_argument("--ollama", action="store_true", help="Use Ollama instead of OpenAI")
+    parser.add_argument("--google", action="store_true", help="Use Google Gemini Pro instead of OpenAI")
+    return parser
 
 
 # Notification handler
@@ -49,7 +61,9 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Aichat the user message."""
     if context.user_data.get('active'):
 
-            response = agent.chat_with_agent(update.message.text)
+            #response = asyncio.run(agent.chat_with_agent(update.message.text))
+            classification: UserIntent =  await gc.ainvoke({"message": update.message.text})
+            response = f"User message: {update.message.text}\n User Intent: {classification}\n"
             print(response)
             await update.message.reply_text(response["msg"],parse_mode=ParseMode.MARKDOWN)
           
@@ -59,24 +73,25 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main():
-    dotenv.load_dotenv()
+    #dotenv.load_dotenv()
 
     BOT_TOKEN = os.getenv('BOT_TOKEN')
     BOT_TYPE = os.getenv('BOT_TYPE')
-
+    #global agent  
     global application
+    global gc
     application = Application.builder().token(BOT_TOKEN).build()
       
-    global agent  
+    cmdline_args: argparse.Namespace = cmdline_parser().parse_args()
+    if cmdline_args.ollama:
+        llm: ChatOllama = ChatOllama(model="llama3:70b")
+    elif cmdline_args.google:
+        llm: ChatGoogleGenerativeAI = ChatGoogleGenerativeAI(model="gemini-1.5-flash-001")
+    else:
+        llm: ChatOpenAI = ChatOpenAI(temperature=0.0)
 
-    try:
-        agent=AiAgents(BOTID,BOT_TYPE)
-    
-    except Exception as e:
-        BOT_TYPE="general"
-        agent=AiAgents(BOTID,"general")
-        print("Disable Hummingbot bridges - fallback to geenral config  :", e)
-
+    chain : RunnableSequence[Dict, UserIntent] = classify_user_intent_chain(llm)
+    gc=chain
 
     # Instantiate BotListener with notification handler
     listener = BotListener(
@@ -110,4 +125,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+        main()

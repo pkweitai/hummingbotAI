@@ -86,6 +86,8 @@ async def initAgent():
     except Exception as e:
         print(f"Failed to initialize agent: {e}")
         raise
+def error_handler(update, context):
+        print(f'Update {update} caused error {context.error}')
 
 
 async def main():
@@ -103,7 +105,8 @@ async def main():
     # Run the application
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, aichat))
-    
+    application.add_error_handler(error_handler)
+
     listener = BotListener(
         host='localhost',
         port=1883,

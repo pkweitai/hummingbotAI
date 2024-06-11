@@ -7,7 +7,7 @@ from langchain_core.runnables import RunnableSequence
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_community.chat_models.ollama import ChatOllama
-from typing import Dict
+from typing import Dict , List
 
 from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
 
@@ -47,11 +47,13 @@ async def main():
     else:
         llm: ChatOpenAI = ChatOpenAI(temperature=0.0)
 
-    chain: RunnableSequence[Dict, UserIntent] = classify_user_intent_chain(llm)
+    chain: RunnableSequence[Dict, UserIntent, List[str]] = classify_user_intent_chain(llm)
 
     for user_message in TEST_USER_MESSAGES:
-        classification: UserIntent = await chain.ainvoke({"message": user_message})
-        print(f"User message: {user_message}\n{classification}\n")
+      classification: UserIntent
+      parameters: List[str]
+      classification, parameters = await chain.ainvoke({"message": user_message})
+      print(f"User message: {user_message}\n{classification}\n parameters: {parameters}")
 
 
 if __name__ == "__main__":

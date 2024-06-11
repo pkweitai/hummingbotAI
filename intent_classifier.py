@@ -2,7 +2,7 @@
 
 import argparse
 import asyncio
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from langchain_core.runnables import RunnableSequence
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
@@ -37,7 +37,7 @@ def cmdline_parser() -> argparse.ArgumentParser:
 
 
 async def main():
-    load_dotenv()
+    #load_dotenv()
 
     cmdline_args: argparse.Namespace = cmdline_parser().parse_args()
     if cmdline_args.ollama:

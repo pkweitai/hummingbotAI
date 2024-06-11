@@ -12,3 +12,10 @@ def template_path() -> str:
 def user_intent_classification_template() -> SystemMessagePromptTemplate:
     with open(join(template_path(), "user_intent_classification.md"), "r") as fd:
         return SystemMessagePromptTemplate.from_template(fd.read())
+
+
+
+@functools.lru_cache
+def user_general_chat_template() -> SystemMessagePromptTemplate:
+    with open(join(template_path(), "user_generalchat.md"), "r") as fd:
+        return SystemMessagePromptTemplate.from_template(fd.read())

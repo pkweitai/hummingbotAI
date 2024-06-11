@@ -1,82 +1,42 @@
 import logging
 import threading
-from telegram import Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from haystack import Pipeline
-from haystack.dataclasses import ChatMessage
-from haystack_integrations.components.generators.google_ai import GoogleAIGeminiChatGenerator
-from haystack.components.builders import DynamicChatPromptBuilder
-from hbotrc import BotListener
-from google.ai.generativelanguage import Tool
+
+
 from featuretable import HummingBotTools
-from QueryExternal import QueryExternalToolTable  # to support external feature table extensions
+from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
+from hummingbot_ai.user_generalchat import response_user_generalchat
+
+from langchain_core.runnables import RunnableSequence
+from typing import Dict
+from langchain_core.runnables import RunnableSequence
+from langchain_openai.chat_models import ChatOpenAI
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
+from langchain_community.chat_models.ollama import ChatOllama
 
 
 class AiAgents:
        
-    def __init__(self,BOTID=None, BOT_TYPE=None) -> None:
-        
-        self.llm = GoogleAIGeminiChatGenerator(model="gemini-pro")
-        self.bottype = BOT_TYPE
-
-        if self.bottype is None:  #default to Hummingbot
-            self.htable = HummingBotTools(BOTID,self.llm)
+    async def setup(self, BOTID=None, cmdline_args=None) -> None:
+        if cmdline_args.ollama:
+            llm = ChatOllama(model="llama3:70b")
+        elif cmdline_args.google:
+            llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-001")
         else:
-            self.htable = QueryExternalToolTable(self.bottype,self.llm)
+            llm = ChatOpenAI(temperature=0.0)
 
-        llm4tool = GoogleAIGeminiChatGenerator(
-            model="gemini-pro",
-            tools=[Tool(function_declarations=self.htable.getFTable())]
-        )
-        self.pipeline = self.pipebuilder(llm4tool)
-        self.systemmsg =  ChatMessage.from_system("You are a helpful assistant giving out valuable information to crypto traders.")
-        self.defaultprompt = """
-                Given the context, please answer the question 
-                """
+        self.llm = llm
+        self.chain: RunnableSequence[Dict, UserIntent] = classify_user_intent_chain(llm)
+        self.chatchain : RunnableSequence[Dict, str] = response_user_generalchat(llm) 
 
-
-    def pipebuilder(self,llm):        
-        #Tool dispatch
-        prompt_builder = DynamicChatPromptBuilder()
-        # Create and configure the pipeline
-        pipelinex = Pipeline()
-        pipelinex.add_component("prompt_builder", prompt_builder)
-        pipelinex.add_component("llm", llm)
-        pipelinex.connect("prompt_builder.prompt", "llm.messages")
-        return pipelinex
-
-
-
-    def chat_with_agent(self,user_input):
-        # Run the pipeline to determine the action and tool response
-        messages = [ChatMessage.from_user(content=user_input)]
-        res = self.pipeline.run(data=
-                        {"prompt_builder": {
-                                "template_variables":{"location": "Mexico",
-                                                    "command" : "start" ,
-                                                    "desc" : " " 
-                                                    },
-                                "prompt_source": messages}})
-
-        print(res)
-
-        tool_messages = self.htable.dispatch(res["llm"]["replies"])
-        if(tool_messages and tool_messages[0].name is None):
-            message = tool_messages[0].content 
-            return { "msg" :message, "status" : 0}
-        else:
-            # complete message from tool responses
-            messages += res["llm"]["replies"] + tool_messages
-            print(messages)
-            print("\n\n")
-            print(tool_messages)
-            res = self.llm.run(messages=messages)
-            contents= self.dumpcontents(res["replies"])
-            return { "msg" : contents[0], "status" : 1}
+    async def chat_with_agent(self, user_input):
+        classification: UserIntent = await self.chain.ainvoke({"message": user_input})
+        results = f" Your Intent seems to be : {classification}\n"
+        print(results)
         
-    
-    def dumpcontents(self,res): 
-            contents=[]
-            for item in res:
-                contents.append(item.content)
-            return contents
+        botAnswers: str = await self.chatchain.ainvoke({"message": user_input})
+        print(botAnswers)
+        
+        results+="\n"
+        results+=botAnswers
+        
+        return {"msg": results, "status": 1}

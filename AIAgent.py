@@ -1,6 +1,6 @@
 import logging
 import threading
-
+import os
 
 from featuretable import HummingBotTools
 from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
@@ -13,6 +13,7 @@ from langchain_openai.chat_models import ChatOpenAI
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_community.chat_models.ollama import ChatOllama
 from typing import List, Callable, Dict
+import requests
 
 
 class AiAgents:
@@ -33,7 +34,7 @@ class AiAgents:
     async def dispatch(self,intent: UserIntent, params: List[str],user_input):
         status="\n"
         if intent in self.function_table:
-            status+=self.function_table[intent](params)
+            status+=self.function_table[intent](self,params)
         else:
             print(f"No handler found" )
 
@@ -43,43 +44,66 @@ class AiAgents:
         
         return humanreadables
 
-    def handle_greeting(params: List[str] = None) -> str:
+    def fetch_latest_crypto_news(self,api_key: str) -> str:
+        url = f'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey={api_key}'
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an HTTPError if the HTTP request returned an unsuccessful status code
+            news_data = response.json()
+            
+            if news_data['status'] == 'ok':
+                articles = news_data['articles']
+                news_list = [{"title": article['title'], "url": article['url']} for article in articles]
+                
+                # Format the output as a markdown string
+                markdown_output = ""
+                for item in news_list:
+                    markdown_output += f"### [{item['title']}]({item['url']})\n\n"
+                
+                return markdown_output
+            else:
+                return f"Failed to fetch news: {news_data['status']}"
+        except requests.exceptions.RequestException as e:
+            return f"An error occurred: {e}"
+
+
+    def handle_greeting(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Greeting: Success"
         return f"Completed Greeting: Success, Parameters: {params}"
 
-    def handle_general_status(params: List[str] = None) -> str:
+    def handle_general_status(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed General Status: Success"
-        return f"Completed General Status: Success, Parameters: {params}"
+        return f"Completed General Status: Success, Parameters: {params} " 
 
-    def handle_market_information(params: List[str] = None) -> str:
-        if params is None or not params:
-            return "Completed Market Information: Success"
-        return f"Completed Market Information: Success, Parameters: {params}"
+    def handle_market_information(self,params: List[str] = None) -> str:
+        apikey = os.getenv('NEWS_API_KEY')  # Get the API key from the environment variable
+        return f"Completed Market Information: Success, Parameters: {params}" + self.fetch_latest_crypto_news(apikey)
 
-    def handle_portfolio_information(params: List[str] = None) -> str:
+
+    def handle_portfolio_information(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Portfolio Information: Success"
         results = " please make a dummy account statement list for me with ETH, BTC , exhcange name, date "
         return f"Completed Portfolio Information: Success, Parameters: {params} ," + results
 
-    def handle_price_alerts(params: List[str] = None) -> str:
+    def handle_price_alerts(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Price Alerts: Success"
         return f"Completed Price Alerts: Success, Parameters: {params}"
 
-    def handle_news_alerts(params: List[str] = None) -> str:
+    def handle_news_alerts(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed News Alerts: Success"
         return f"Completed News Alerts: Success, Parameters: {params}"
 
-    def handle_trading(params: List[str] = None) -> str:
+    def handle_trading(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Trading: Success"
         return f"Completed Trading: Success, Parameters: {params}"
 
-    def handle_chat(params: List[str] = None) -> str:
+    def handle_chat(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Chat: Success"
         return f"Completed Chat: Success, Parameters: {params}"

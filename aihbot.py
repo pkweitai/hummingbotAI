@@ -67,7 +67,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Aichat the user message."""
-    if context.user_data.get('active'):
+    if context.user_data.get('active') or 1:
         response = await agent.chat_with_agent(update.message.text)
         print(response)
         await update.message.reply_text(response["msg"], parse_mode=ParseMode.MARKDOWN)

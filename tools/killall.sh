@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find the PID of the process running python aihbot.py on ttys007
-PID=$(ps aux | grep 'python aihbot.py' | grep 'ttys007' | grep -v 'grep' | awk '{print $2}')
+PID=$(ps aux | grep 'aihbot' | grep -v 'grep' | awk '{print $2}')
 
 # Check if PID is not empty
 if [ -z "$PID" ]; then

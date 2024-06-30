@@ -80,11 +80,11 @@ jsonpath-ng==1.6.1
 jsonpointer==2.4
 k2==0.3.0
 kiwisolver==1.4.5
-langchain==0.2.1
-langchain-community==0.0.32
-langchain-core==0.2.3
-langchain-google-genai==1.0.5
-langchain-openai==0.1.8
+langchain
+langchain-community
+langchain-core
+langchain-google-genai
+langchain-openai
 langchain-text-splitters==0.2.0
 langcodes==3.4.0
 langsmith==0.1.67
@@ -150,7 +150,7 @@ pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pyAudioAnalysis==0.3.14
 pycparser==2.22
-pydantic==1.10.4
+pydantic
 pydantic_core==2.16.3
 pydub==0.25.1
 pymongo==4.6.3

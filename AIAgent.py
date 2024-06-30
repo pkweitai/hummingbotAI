@@ -1,6 +1,7 @@
 import logging
 import threading
 import os
+import json
 
 from featuretable import HummingBotTools
 from hummingbot_ai.user_intent_classifier import classify_user_intent_chain, UserIntent
@@ -14,6 +15,7 @@ from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_community.chat_models.ollama import ChatOllama
 from typing import List, Callable, Dict
 import requests
+import serpapi
 
 
 class AiAgents:
@@ -77,9 +79,59 @@ class AiAgents:
             return "Completed General Status: Success"
         return f"Completed General Status: Success, Parameters: {params} " 
 
-    def handle_market_information(self,params: List[str] = None) -> str:
-        apikey = os.getenv('NEWS_API_KEY')  # Get the API key from the environment variable
-        return f"Completed Market Information: Success, Parameters: {params}" + self.fetch_latest_crypto_news(apikey)
+
+    def handle_market_information(self, params: List[str] = None) -> str:
+        file_path = 'market_information.txt'
+
+        # Check if the file exists
+        if os.path.exists(file_path):
+            # Load the response from the file
+            with open(file_path, 'r') as file:
+                responses = json.loads(file.read())
+            print("Loaded from local file:", responses)
+        else:
+            # Call the API and save the response to the file
+            api_key = os.getenv('SERAPI_KEY')
+            desc: str = "Top 10 Crypto News today"
+            params = {
+                "api_key": api_key,
+                "engine": "google",
+                "q": desc,
+                "location": "Austin, Texas, United States",
+                "google_domain": "google.com",
+                "gl": "us",
+                "hl": "en",
+                "tbm": "nws"
+            }
+
+            responses = serpapi.search(params)
+            
+            # Save the response to a plain text file
+            with open(file_path, 'w') as file:
+                file.write(str(responses))
+
+            print("Saved to local file:", responses)
+
+        # Parse the top 5 news headlines and URLs
+        news_results = responses.get("news_results", [])
+        top_5_news = news_results[:5]
+
+        # Format the headlines and URLs in markdown
+        markdown_lines = ["## Top 5 Crypto News Headlines\n"]
+        for news in top_5_news:
+            title = news.get("title", "No title")
+            link = news.get("link", "#")
+            print("got--> ",title,link)
+            markdown_lines.append(f"- [{title}]({link})")
+
+        markdown_result = "\n".join(markdown_lines)
+
+        return markdown_result
+
+    # Example usage:
+    # print(handle_market_information(params=None))
+
+
 
 
     def handle_portfolio_information(self,params: List[str] = None) -> str:
@@ -121,8 +173,9 @@ class AiAgents:
         
         #botAnswers: str = await self.chatchain.ainvoke({"message": user_input})
         botAnswers: str = await self.dispatch(classification,parameters,user_input)
-        botAnswers +=aianswers
+        #botAnswers +=aianswers
         print(botAnswers)
+        print(aianswers)
         
         return {"msg": botAnswers, "status": 1}
     

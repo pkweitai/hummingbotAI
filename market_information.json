@@ -1,0 +1,152 @@
+{
+    "search_metadata": {
+        "id": "6681e47ee815af4df722d868",
+        "status": "Success",
+        "json_endpoint": "https://serpapi.com/searches/7b4d6faf1bdcea31/6681e47ee815af4df722d868.json",
+        "created_at": "2024-06-30 23:04:30 UTC",
+        "processed_at": "2024-06-30 23:04:30 UTC",
+        "google_url": "https://www.google.com/search?q=Top+10+Crypto+News+today&oq=Top+10+Crypto+News+today&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&hl=en&gl=us&tbm=nws&sourceid=chrome&ie=UTF-8",
+        "raw_html_file": "https://serpapi.com/searches/7b4d6faf1bdcea31/6681e47ee815af4df722d868.html",
+        "total_time_taken": 0.84
+    },
+    "search_parameters": {
+        "engine": "google",
+        "q": "Top 10 Crypto News today",
+        "location_requested": "Austin, Texas, United States",
+        "location_used": "Austin,Texas,United States",
+        "google_domain": "google.com",
+        "hl": "en",
+        "gl": "us",
+        "device": "desktop",
+        "tbm": "nws"
+    },
+    "search_information": {
+        "query_displayed": "Top 10 Crypto News today",
+        "total_results": 295000,
+        "time_taken_displayed": 0.25,
+        "news_results_state": "Results for exact spelling"
+    },
+    "news_results": [
+        {
+            "position": 1,
+            "link": "https://www.forbes.com/advisor/investing/cryptocurrency/top-10-cryptocurrencies/",
+            "title": "10 Best Cryptocurrencies of June 2024 \u2013 Forbes Advisor",
+            "source": "Forbes",
+            "date": "4 days ago",
+            "snippet": "Bitcoin, Ethereum, Dogecoin & Tether, there are thousands of different \ncryptocurrencies available. Let Forbes Advisor walk you through the...",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a1291963f385a0828e4da1ac09208437a143488d0b16d66d2e462d3.jpeg"
+        },
+        {
+            "position": 2,
+            "link": "https://dailycoin.com/shiba-inu-loses-top-10-spot-to-tron-in-weekly-crypto-shakeup/",
+            "title": "Shiba Inu Loses Top 10 Spot to Tron in Weekly Crypto Shakeup",
+            "source": "DailyCoin",
+            "date": "4 hours ago",
+            "snippet": "The top 10 cryptocurrencies excluding stablecoins saw a shakeup this week, \nwith Shiba Inu and Tron battling for the 10th position.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a129196b4d8de237aadc348d9bceb9833e5771a50c56f7b6f4ef020.jpeg"
+        },
+        {
+            "position": 3,
+            "link": "https://99bitcoins.com/cryptocurrency/new-cryptocurrency/",
+            "title": "15 New Cryptocurrencies to Invest in 2024",
+            "source": "99Bitcoins",
+            "date": "4 days ago",
+            "snippet": "This guide analyzes 15 of the best new crypto launches in 2024. Our top \npick is Pepe Unchained - a new meme token offering staking rewards.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a129196098808180e189aed40a3cb80cc962eea2b489f07d9b72584.jpeg"
+        },
+        {
+            "position": 4,
+            "link": "https://cryptonews.com/news/whats-happening-in-crypto-today-daily-crypto-news-digest.htm",
+            "title": "What's Happening In Crypto Today? Daily Crypto News Digest",
+            "source": "Cryptonews",
+            "date": "2 days ago",
+            "snippet": "Explore the latest crypto news impacting the Bitcoin price, altcoin market \nmovements and DeFi ups and downs in this top crypto news digest!",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a1291964466a61af11eae5683d714d04ad722aa80276799e0fe687f.jpeg"
+        },
+        {
+            "position": 5,
+            "link": "https://crypto.news/best-performing-cryptocurrencies-right-now/",
+            "title": "Top 10 best performing cryptocurrencies right now",
+            "source": "crypto.news",
+            "date": "3 days ago",
+            "snippet": "Check out the top 10 best performing cryptos in the last 7 days as well as \ninsights into what might be driving their prices.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a12919678eb9771681ddb3e136b0594fc2299202fbcadc270a94353.jpeg"
+        },
+        {
+            "position": 6,
+            "link": "https://www.techopedia.com/cryptocurrency/new",
+            "title": "10+ New Cryptocurrency Projects to Invest in - Newest Crypto of 2024",
+            "source": "Techopedia",
+            "date": "2 days ago",
+            "snippet": "What are the new cryptocurrency projects in 2024? Read our guide on the \nnewest cryptocurrency on the market and if it's worth the...",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a12919658eaa756bd3ff0b716239e87e4271288976b1b8e9f7be0a6.jpeg"
+        },
+        {
+            "position": 7,
+            "link": "https://m.economictimes.com/markets/cryptocurrency/crypto-news/10-best-cryptocurrencies-to-invest-in-june-2024/articleshow/107359159.cms",
+            "title": "Best Cryptocurrencies to Invest in June 2024",
+            "source": "The Economic Times",
+            "date": "2 weeks ago",
+            "snippet": "Explore the top 10 cryptocurrencies for June 2024. Get insights on \npromising investments for your crypto portfolio.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a129196831ee5b404a99d17e7341fe726db599544df892ed96555dd.jpeg"
+        },
+        {
+            "position": 8,
+            "link": "https://coingape.com/trending/solana-and-cardano-lead-top-10-crypto-rebound/",
+            "title": "Solana and Cardano Lead Top 10 Crypto Rebound",
+            "source": "CoinGape",
+            "date": "5 days ago",
+            "snippet": "The crypto market is picking up gains today with Solana (SOL) and Cardano \n(ADA) leading the resurgence among top coins.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a1291963826e696a6cf9aed8a404e89d84c5725f3897bbb275c11fc.jpeg"
+        },
+        {
+            "position": 9,
+            "link": "https://cointelegraph.com/news/memecoins-dominate-crypto-open-interest-charts",
+            "title": "Memecoins dominate crypto open interest charts taking 4 out of top 10 spots",
+            "source": "Cointelegraph",
+            "date": "1 month ago",
+            "snippet": "Memecoins dominate the crypto open interest charts, with Pepe, WIF, DOGE, \nand BONK capturing 4 of the top 10 spots. Pepe leads the memecoin...",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a129196f7fc6c278374715a91b41fb3c8af08ab923ba2525cd5c0b1.jpeg"
+        },
+        {
+            "position": 10,
+            "link": "https://cryptonews.com/cryptocurrency/new-cryptocurrency/",
+            "title": "17 New Cryptocurrency Projects to Invest in 2024 - Newest Crypto",
+            "source": "Cryptonews",
+            "date": "5 days ago",
+            "snippet": "Based on our research, the best new crypto projects to invest in for 2024 \nare Pepe Unchained, WienerAI, PlayDoge, Base Dawgz, and Sealana.",
+            "thumbnail": "https://serpapi.com/searches/6681e47ee815af4df722d868/images/d69702643a129196c6f26492a6af36fa096000e8dbec99ec5a2013f3a23a6980.jpeg"
+        }
+    ],
+    "pagination": {
+        "current": 1,
+        "next": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=10&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8NMDegQIAxAW",
+        "other_pages": {
+            "2": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=10&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAE",
+            "3": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=20&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAG",
+            "4": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=30&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAI",
+            "5": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=40&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAK",
+            "6": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=50&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAM",
+            "7": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=60&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAO",
+            "8": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=70&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAQ",
+            "9": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=80&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAS",
+            "10": "https://www.google.com/search?q=Top+10+Crypto+News+today&sca_esv=115f0f3a83152c1e&sca_upv=1&gl=us&hl=en&tbm=nws&ei=f-SBZoiOBMjOkPIPy-67mAQ&start=90&sa=N&ved=2ahUKEwjIyc-GuISHAxVIJ0QIHUv3DkMQ8tMDegQIAxAU"
+        }
+    },
+    "serpapi_pagination": {
+        "current": 1,
+        "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=10&tbm=nws",
+        "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=10&tbm=nws",
+        "other_pages": {
+            "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=10&tbm=nws",
+            "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=20&tbm=nws",
+            "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=30&tbm=nws",
+            "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=40&tbm=nws",
+            "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=50&tbm=nws",
+            "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=60&tbm=nws",
+            "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=70&tbm=nws",
+            "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=80&tbm=nws",
+            "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Top+10+Crypto+News+today&start=90&tbm=nws"
+        }
+    }
+}

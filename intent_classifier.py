@@ -41,7 +41,7 @@ async def main():
 
     cmdline_args: argparse.Namespace = cmdline_parser().parse_args()
     if cmdline_args.ollama:
-        llm: ChatOllama = ChatOllama(model="llama3:70b")
+        llm: ChatOllama = ChatOllama(model="gemma2:9b")
     elif cmdline_args.google:
         llm: ChatGoogleGenerativeAI = ChatGoogleGenerativeAI(model="gemini-1.5-flash-001")
     else:

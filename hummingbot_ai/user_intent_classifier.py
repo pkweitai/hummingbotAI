@@ -6,7 +6,6 @@ from langchain_core.prompts import HumanMessagePromptTemplate, ChatPromptTemplat
 from typing import cast,List
 import re
 
-
 from hummingbot_ai.prompt_templates import user_intent_classification_template
 
 

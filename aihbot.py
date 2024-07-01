@@ -14,7 +14,10 @@ from haystack import Pipeline
 from haystack.dataclasses import ChatMessage
 from haystack_integrations.components.generators.google_ai import GoogleAIGeminiChatGenerator
 from haystack.components.builders import DynamicChatPromptBuilder
-from hbotrc import BotListener
+
+from hbotrc import BotListener, BotCommands
+
+
 
 from langchain_core.runnables import RunnableSequence
 from langchain_openai.chat_models import ChatOpenAI
@@ -50,12 +53,23 @@ def cmdline_parser() -> argparse.ArgumentParser:
 def on_notification(msg):
     global bot_instance, target_chat_id
     _text = msg.msg
-    print("[event] " + _text + ", id " + str(target_chat_id))
+    print("[event received] " + _text + ", id " + str(target_chat_id) )
     if bot_instance and target_chat_id:
-        asyncio.run_coroutine_threadsafe(
-            bot_instance.send_message(chat_id=target_chat_id, text=f'[NOTIFICATION] - {_text}'),
-            asyncio.get_event_loop()
-        )
+        print("send message")
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = None
+        if loop and loop.is_running():
+            asyncio.run_coroutine_threadsafe(
+                bot_instance.send_message(chat_id=target_chat_id, text=f'[NOTIFICATION] - {_text}'),
+                loop
+            )
+        else:
+            asyncio.run(
+                bot_instance.send_message(chat_id=target_chat_id, text=f'[NOTIFICATION] - {_text}')
+            )
+
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -67,6 +81,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Aichat the user message."""
+    global target_chat_id
+    target_chat_id = str(update.message.chat_id)  # Set the chat ID based on where /start was called
     if context.user_data.get('active') or 1:
         response = await agent.chat_with_agent(update.message.text)
         print(response)
@@ -75,14 +91,14 @@ async def aichat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text("Please use /start to activate the bot.")
 
 
-async def initAgent():
+async def initAgent(client):
     global agent  # Declare agent as global to modify it
     options = cmdline_parser().parse_args()
     try:
         agent = AiAgents()
         if agent is None:
             raise ValueError("Agent initialization failed!")
-        await agent.setup(BOTID, options)
+        await agent.setup(BOTID, options,client=client)
     except Exception as e:
         print(f"Failed to initialize agent: {e}")
         raise
@@ -97,7 +113,6 @@ async def main():
     if BOT_TOKEN is None:
         raise ValueError("BOT_TOKEN environment variable is not set")
 
-    await initAgent()  # Await the initialization of the agent
 
     application = Application.builder().token(BOT_TOKEN).build()
     bot_instance = application.bot
@@ -119,7 +134,21 @@ async def main():
         on_notification=on_notification
     )
 
+    client = BotCommands(
+        host='localhost',
+        port=1883,
+        username='',
+        password='',
+        bot_id=BOTID,
+    )
+
+
+    await initAgent(client)  # Await the initialization of the agent
+    #resp = await agent.run_commands()
+    #print(resp)
+
     # Start the listener in the event loop
+    global target
     try:
         threading.Thread(target=asyncio.new_event_loop().run_until_complete, args=(listener.run_forever(),)).start()
         print("started listener")

@@ -20,7 +20,7 @@ import serpapi
 
 class AiAgents:
        
-    async def setup(self, BOTID=None, cmdline_args=None) -> None:
+    async def setup(self, BOTID=None, cmdline_args=None, client=None) -> None:
         if cmdline_args.ollama:
             llm = ChatOllama(model="llama3:70b")
         elif cmdline_args.google:
@@ -31,6 +31,11 @@ class AiAgents:
         self.llm = llm
         self.chain: RunnableSequence[Dict, UserIntent] = classify_user_intent_chain(llm)
         self.chatchain : RunnableSequence[Dict, str] = response_user_generalchat(llm) 
+        self.client=client
+
+    async def run_commands(self):
+        return self.client.status()
+        
 
 
     async def dispatch(self,intent: UserIntent, params: List[str],user_input):
@@ -133,11 +138,10 @@ class AiAgents:
 
 
 
-
     def handle_portfolio_information(self,params: List[str] = None) -> str:
         if params is None or not params:
             return "Completed Portfolio Information: Success"
-        results = " please make a dummy account statement list for me with ETH, BTC , exhcange name, date "
+        results = self.client.exchange_info()
         return f"Completed Portfolio Information: Success, Parameters: {params} ," + results
 
     def handle_price_alerts(self,params: List[str] = None) -> str:
